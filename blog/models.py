@@ -17,20 +17,18 @@ class Post(models.Model):
         ('published', 'منتشر شده'),
     )
 
-    title = models.CharField('عنوان', max_length=250)
-    description = TextField('توضیحات', blank=True, null=True)
-    image = models.ImageField('تصویر', upload_to='blog/%Y/%m/%d', default='default.jpg', blank=True)
+    title = models.CharField('عنوان', max_length=250, null=True)
+    description = TextField('توضیحات', null=True)
+    image = models.ImageField('تصویر', upload_to='blog/%Y/%m/%d', blank=True)
 
     # price = models.IntegerField('قیمت', null=True,blank=True)
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL, null=True, blank=True, verbose_name="نویسنده")
-    view_count = models.IntegerField(default=0)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True, verbose_name="نویسنده")
+    view_count = models.IntegerField('تعداد بازدید', default=0)
     
     status = models.CharField('وضعیت', max_length=10, choices=STATUS_CHOICES, default='waiting')
     objects = models.Manager()  # The default manager
     published = PublishedManager()  # Our custom manager
-    
-    
 
     publish = models.DateTimeField('تاریخ انتشار', default=timezone.now)
     created_at = models.DateTimeField('تاریخ ساخت', auto_now_add=True)
