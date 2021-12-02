@@ -23,7 +23,8 @@ schema_view = get_schema_view(
 urlpatterns = [
    path('admin/', admin.site.urls),
    path('accounts/', include('accounts.urls')),
-   path('blog/', include('blog.urls')),
+   path('movie/', include('movie.urls')),
+   path('actors/', include('actors.urls')),
    path('user_profile/', include('user_profile.urls')),
    
    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

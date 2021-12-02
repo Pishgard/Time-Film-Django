@@ -12,6 +12,8 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from django.contrib.auth import authenticate, login
 import jwt
+
+from user_profile.serializers import ProfileSerializer
 from .serializers import *
 from rest_framework.permissions import (
     AllowAny,
@@ -27,13 +29,18 @@ class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
     def post(self, request):
-        user = request.data
-        serializer = self.serializer_class(data=user)
+        user1 = request.data
+        serializer = self.serializer_class(data=user1)
         serializer.is_valid(raise_exception=True) # Call validate method in serializer
         serializer.save()
         user_data = serializer.data
+        profile = UserProfile.objects.get(user=request.user)
+        serializer_profile = ProfileSerializer(profile)
+        print(serializer_profile.data)
+
 
         user = User.objects.get(email=user_data['email'])
+
 
         # Make an access token for user
         token = RefreshToken.for_user(user).access_token
@@ -99,8 +106,8 @@ class RequestPasswordResetPhone(generics.GenericAPIView):
             # Because we need to make a reset password link and we don't want to
             # others can see the id because of security issues
             # So we encode it with base64
-            uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
-            token = PasswordResetTokenGenerator().make_token(user)
+            # uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
+            # token = PasswordResetTokenGenerator().make_token(user)
             # current_site = get_current_site(request=request).domain
             # relativeLink = reverse('accounts:password-reset-confirm', kwargs={'uidb64': uidb64, 'token': token})
             #
@@ -117,40 +124,40 @@ class RequestPasswordResetPhone(generics.GenericAPIView):
                             status=status.HTTP_404_NOT_FOUND)
 
 
-class PasswordTokenCheckAPIView(generics.GenericAPIView):
-    """Check validation of token view"""
-    serializer_class = SetNewPasswordSerializer
+# class PasswordTokenCheckAPIView(generics.GenericAPIView):
+#     """Check validation of token view"""
+#     serializer_class = SetNewPasswordSerializer
 
-    def get(self, request, uidb64, token):
+#     def get(self, request, uidb64, token):
 
-        redirect_url = request.GET.get('redirect_url')
-        # redirect_url = '/accounts/password-reset-complete'
+#         redirect_url = request.GET.get('redirect_url')
+#         # redirect_url = '/accounts/password-reset-complete'
 
-        try:
-            # decode user id and get user
-            user_id = smart_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(id=user_id)
+#         try:
+#             # decode user id and get user
+#             user_id = smart_str(urlsafe_base64_decode(uidb64))
+#             user = User.objects.get(id=user_id)
 
-            # check wether the token is associated with user or not
-            if not PasswordResetTokenGenerator().check_token(user, token):
-                if len(redirect_url) > 3:
-                    return CustomeRedirect(redirect_url + '?token_valid=False')
-                else:
-                    return CustomeRedirect(os.environ.get('FRONTEND_URL', '') + '?token_valid=False')
+#             # check wether the token is associated with user or not
+#             if not PasswordResetTokenGenerator().check_token(user, token):
+#                 if len(redirect_url) > 3:
+#                     return CustomeRedirect(redirect_url + '?token_valid=False')
+#                 else:
+#                     return CustomeRedirect(os.environ.get('FRONTEND_URL', '') + '?token_valid=False')
 
-            if redirect_url and len(redirect_url) > 3:
-                return CustomeRedirect(
-                    redirect_url + '?token_valid=True&message=Credentials Valid&uidb64=' + uidb64 + '&token=' + token)
-            else:
-                return CustomeRedirect(os.environ.get('FRONTEND_URL', '') + '?token_valid=False')
+#             if redirect_url and len(redirect_url) > 3:
+#                 return CustomeRedirect(
+#                     redirect_url + '?token_valid=True&message=Credentials Valid&uidb64=' + uidb64 + '&token=' + token)
+#             else:
+#                 return CustomeRedirect(os.environ.get('FRONTEND_URL', '') + '?token_valid=False')
 
-        except DjangoUnicodeDecodeError:
-            try:
-                if not PasswordResetTokenGenerator().check_token(user):
-                    return Response(redirect_url + '?token_valid=False')
-            except UnboundLocalError as e:
-                return Response({'error': 'Token is not valid, please request a new one'},
-                                status=status.HTTP_400_BAD_REQUEST)
+#         except DjangoUnicodeDecodeError:
+#             try:
+#                 if not PasswordResetTokenGenerator().check_token(user):
+#                     return Response(redirect_url + '?token_valid=False')
+#             except UnboundLocalError as e:
+#                 return Response({'error': 'Token is not valid, please request a new one'},
+#                                 status=status.HTTP_400_BAD_REQUEST)
 
 
 class SetNewPasswordAPIView(generics.GenericAPIView):
@@ -178,4 +185,3 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer.save()
 
         return Response({'success': 'Successfully loged out'}, status=status.HTTP_204_NO_CONTENT)
-

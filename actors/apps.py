@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class BlogConfig(AppConfig):
+class ActorsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'blog'
-    verbose_name = 'وبلاگ'
+    name = 'actors'
+    verbose_name = 'بازیگران'

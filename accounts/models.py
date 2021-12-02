@@ -31,6 +31,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_verified', True)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, **extra_fields)
 
@@ -51,13 +52,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('آدرس ایمیل', unique=True, null=True)
     username = models.CharField('نام کاربری', max_length=30, unique=True, validators=[RegexValidator(
         regex=REGEX, message="username must contain alphabets and numbers only", code='invalid username')])
-    first_name = models.CharField('نام', max_length=254, null=True)
-    last_name = models.CharField('نام خانوادگی', max_length=254, null=True)
+    name = models.CharField('نام و نام خانوادگی', max_length=254, null=True)
+    # last_name = models.CharField('نام خانوادگی', max_length=254, null=True)
 
     is_verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField('تاریخ عضویت', default=timezone.now)
-    auth_provider = models.CharField(max_length=255, blank=False, null=False, default=AUTH_PROVIDERS.get('email'))
+    # auth_provider = models.CharField(max_length=255, blank=False, null=False, default=AUTH_PROVIDERS.get('email'))
 
     objects = UserManager()
     USERNAME_FIELD = 'email'

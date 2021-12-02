@@ -23,14 +23,13 @@ INSTALLED_APPS = [
 
     # Packages
     'rest_framework',
-    'phonenumber_field',
     'jalali_date',
     'drf_yasg',
-    'crispy_forms',
 
     # Apps
     'accounts.apps.AccountsConfig',
-    'blog.apps.BlogConfig',
+    'movie.apps.MovieConfig',
+    'actors.apps.ActorsConfig',
     'user_profile.apps.UserProfileConfig',
 ]
 
@@ -44,7 +43,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'wtiau.urls'
+ROOT_URLCONF = 'FilmTime.urls'
 
 TEMPLATES = [
     {
@@ -62,7 +61,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wtiau.wsgi.application'
+WSGI_APPLICATION = 'FilmTime.wsgi.application'
 
 
 # Database

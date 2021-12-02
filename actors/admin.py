@@ -1,20 +1,20 @@
 from django.contrib import admin
-from .models import Post
+from .models import Actors
 from jalali_date.admin import ModelAdminJalaliMixin
 from jalali_date import datetime2jalali
 
 
-@admin.register(Post)
-class PostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['title', 'author', 'get_publish_jalali', 'status']
-    list_filter = ['status', 'created_at', 'publish', 'author']
-    search_fields = ['status', 'author__username', 'title']
+@admin.register(Actors)
+class ActorsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
+    list_display = ['name', 'get_publish_jalali']
+    list_filter = ['created_at',]
+    search_fields = ['name']
     # prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'publish'
     # autocomplete_fields = ['category']
     # filter_horizontal = ['tags']
 
-    list_editable = ['status']
+    # list_editable = ['status']
     readonly_fields = ['view_count']
 
     def get_publish_jalali(self, obj):

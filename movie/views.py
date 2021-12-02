@@ -8,28 +8,28 @@ from rest_framework.permissions import (
     IsAdminUser,
     IsAuthenticatedOrReadOnly,
 )
-from .models import Post
+from .models import Movie
 
 from jalali_date import datetime2jalali, date2jalali
 
 
-class PostView(generics.ListAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+class MovieView(generics.ListAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
     lookup_field = 'id'
     # permission_classes =[IsAuthenticated,]
 
     def get_object(self):
-        posts = get_object_or_404(Post, pk=self.kwargs['id'])
-        posts.created_at = datetime2jalali(posts.created_at).strftime('%Y/%m/%d')
-        posts.updated_at = datetime2jalali(posts.updated_at).strftime('%Y/%m/%d')
+        movies = get_object_or_404(Movie, pk=self.kwargs['id'])
+        movies.created_at = datetime2jalali(movies.created_at).strftime('%Y/%m/%d')
+        movies.updated_at = datetime2jalali(movies.updated_at).strftime('%Y/%m/%d')
 
-        return posts
+        return movies
 
 
-class PostCreateView(generics.CreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostCreateSerializer
+class MovieCreateView(generics.CreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieCreateSerializer
     lookup_field = 'id'
 
     # permission_classes =[IsAuthenticated,]
@@ -38,19 +38,19 @@ class PostCreateView(generics.CreateAPIView):
         serializer.save()
 
 
-class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
+class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
     # queryset = Post.objects.all()
-    serializer_class = PostDetailSerializer
+    serializer_class = MovieDetailSerializer
     lookup_field = 'id'
 
     # permission_classes =[IsAuthenticated,]
 
     def get_object(self):
-        posts = get_object_or_404(Post, pk=self.kwargs['id'])
-        posts.created_at = datetime2jalali(posts.created_at).strftime('%Y/%m/%d')
-        posts.updated_at = datetime2jalali(posts.updated_at).strftime('%Y/%m/%d')
+        movies = get_object_or_404(Movie, pk=self.kwargs['id'])
+        movies.created_at = datetime2jalali(movies.created_at).strftime('%Y/%m/%d')
+        movies.updated_at = datetime2jalali(movies.updated_at).strftime('%Y/%m/%d')
 
-        return posts
+        return movies
     
     def retrieve(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -67,6 +67,6 @@ class SearchData(views.APIView):
         if search.isnumeric() is False:
             return Response({"error": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
 
-        query = Post.objects.filter(rooms=search)
-        serializers = PostDetailSerializer(query, many=True)
+        query = Movie.objects.filter(rooms=search)
+        serializers = MovieDetailSerializer(query, many=True)
         return Response(serializers.data, status=status.HTTP_200_OK)

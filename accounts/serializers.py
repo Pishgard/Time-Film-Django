@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'date_joined', 'password')
+        fields = ('id', 'email', 'username', 'name', 'date_joined', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -23,22 +23,22 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'first_name', 'last_name', 'password')
-        extra_kwargs = {'first_name': {'required': True}, 'last_name': {'required': True}}
+        fields = ('email', 'username', 'name', 'password')
+        extra_kwargs = {'name': {'required': True}}
 
     def validate(self, attrs):
         email = attrs.get('email', '')
         username = attrs.get('username', '')
-        first_name = attrs.get('first_name', '')
-        last_name = attrs.get('last_name', '')
+        name = attrs.get('name', '')
+        # last_name = attrs.get('last_name', '')
 
         # Validation of data which user add
         if not email:
             raise serializers.ValidationError('You should add an email')
-        if not first_name:
-            raise serializers.ValidationError('You should add your first name')
-        if not last_name:
-            raise serializers.ValidationError('You should add your last name')
+        if not name:
+            raise serializers.ValidationError('You should add your name')
+        # if not last_name:
+        #     raise serializers.ValidationError('You should add your last name')
         if not username:
             raise serializers.ValidationError('You should add your username')
         return attrs

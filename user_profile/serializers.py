@@ -9,5 +9,3 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('user', 'gender', 'bio', 'image_profile')
-
-
