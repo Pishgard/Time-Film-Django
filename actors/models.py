@@ -8,7 +8,7 @@ class Actors(models.Model):
     image = models.ImageField('تصویر', upload_to='actors/%Y/%m/%d', blank=True)
     age = models.IntegerField('سن')
 
-    description = TextField('توضیحات', null=True)
+    description = TextField('توضیحات', null=True, blank=True)
     
     view_count = models.IntegerField('تعداد بازدید', default=0)
     publish = models.DateTimeField('تاریخ انتشار', default=timezone.now)
