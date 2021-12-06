@@ -16,7 +16,7 @@ class Actors(models.Model):
     updated_at = models.DateTimeField('تاریخ بروزرسانی', auto_now=True)
 
     class Meta:
-        ordering = ('-updated_at',)
+        ordering = ('updated_at',)
         verbose_name = 'بازیگر'
         verbose_name_plural = 'بازیگران'
 
