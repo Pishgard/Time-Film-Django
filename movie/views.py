@@ -14,7 +14,7 @@ from jalali_date import datetime2jalali, date2jalali
 
 
 class MovieView(generics.ListAPIView):
-    queryset = Movie.objects.all()
+    queryset = Movie.published.all()
     serializer_class = MovieSerializer
     lookup_field = 'id'
     # permission_classes =[IsAuthenticated,]
