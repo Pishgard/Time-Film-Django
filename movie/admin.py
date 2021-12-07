@@ -21,3 +21,7 @@ class MovieAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     	return datetime2jalali(obj.publish).strftime('%Y/%m/%d - %H:%M:%S')
     get_publish_jalali.short_description = 'تاریخ انتشار'
     get_publish_jalali.admin_order_field = 'publish'
+
+admin.site.site_header = "تایم فیلم"
+admin.site.site_title = "تایم فیلم"
+admin.site.index_title = "ادمین تایم فیلم"

@@ -6,15 +6,11 @@ from jalali_date import datetime2jalali
 
 @admin.register(Actors)
 class ActorsAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['name', 'get_publish_jalali']
-    list_filter = ['created_at',]
+    list_display = ['name', 'get_publish_jalali', 'age']
+    list_filter = ['created_at', 'age']
     search_fields = ['name']
-    # prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'publish'
-    # autocomplete_fields = ['category']
-    # filter_horizontal = ['tags']
 
-    # list_editable = ['status']
     readonly_fields = ['view_count']
 
     def get_publish_jalali(self, obj):
