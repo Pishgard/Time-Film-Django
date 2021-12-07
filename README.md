@@ -3,6 +3,8 @@ A movie suggestion aplication build with django-rest & flutter.
 
 #### Application this Project:
 https://github.com/Pishgard/Time-Film-Flutter
+<img src="https://gcdn.pbrd.co/images/n2CWu2E3gOMq.png?o=1" width="100%">
+
 
 A simple, reponsive website. Built with:
 
