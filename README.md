@@ -1,5 +1,8 @@
-# Time film Backend
-A real estate listings website built with python django bootstrap.
+# Time Film Backend
+A movie suggestion aplication build with django-rest & flutter.
+
+#### Application this Project:
+https://github.com/Pishgard/Time-Film-Flutter
 
 A simple, reponsive website. Built with:
 
@@ -7,6 +10,7 @@ A simple, reponsive website. Built with:
 - Django
 - Dart
 - Flutter
+
 
 If you are new to Django, checkout the Django 3.x Cheat Sheet
 
@@ -17,7 +21,7 @@ If you are new to Django, checkout the Django 3.x Cheat Sheet
 git clone https://github.com/Pishgard/Time-Film-Django.git
 ```
 
-2. **Make sure you are in Real-Estate-Django-Persian folder**
+2. **Make sure you are in Time-Film-Django folder**
 
 3. Install all dependencies
 ```
