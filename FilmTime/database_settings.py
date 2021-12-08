@@ -14,7 +14,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'royalmelk',
+#         'NAME': 'projectname',
 #         'USER': 'postgres',
 #         'PASSWORD': '12345',
 #         'HOST': 'localhost',
