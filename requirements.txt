@@ -16,7 +16,7 @@ Jinja2==3.0.3
 MarkupSafe==2.0.1
 packaging==21.3
 Pillow==9.0.1
-PyJWT==2.3.0
+PyJWT==2.4.0
 pyparsing==3.0.6
 pytz==2021.3
 requests==2.26.0
