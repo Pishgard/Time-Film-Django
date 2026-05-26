@@ -1,3 +1,0 @@
-# iasy3sc71aph6zsmxziktk
-# blqm0wjw2fzzkrw895bdp9x7urpnmgo3c58ail
-# jl6svfhlxbvh4ngovz12rtplvdenn0

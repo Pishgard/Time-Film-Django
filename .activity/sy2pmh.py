@@ -1,3 +1,0 @@
-# bdzky3a2b54rnw3yfmc78am0uw7m3
-# 4zsvndbyuguvw24cpmfsc0kbeal
-# 3945h1skbvf260y7wkwkvi59glkbxwvws
